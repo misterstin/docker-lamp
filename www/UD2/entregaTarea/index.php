@@ -13,10 +13,10 @@
             <?php include 'menu.php'; ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h2>Título del contenido</h2>
+                    <h2>Tarea entregable de DWCS de Martín Domínguez Díaz</h2>
                 </div>
                 <div class="container">
-                    <p>Aquí va el contenido </p>
+                    <p>Contenido de la tarea entregable de la UD02 de DCWS </p>
                 </div>
             </main>
         </div>
