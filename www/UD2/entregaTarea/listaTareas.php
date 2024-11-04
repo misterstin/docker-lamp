@@ -36,6 +36,9 @@
                 echo "<td>" . $posicion[contenido] . "</td>";
                 echo "</tr>";
             }
+
+            /*Cuando hago la prueba de guardar un formulario y luego intento verlo mediante esto siempre aparece vacio, entiendo que es porque al 
+            guardarse la información de forma simulada con un array esta no tiene continuidad al cerrar nueva.php*/
              ?>
 
         </tbody>
@@ -48,3 +51,4 @@
     <?php include 'footer.php'; ?>
 </body>
 </html>
+
