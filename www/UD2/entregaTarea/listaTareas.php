@@ -19,20 +19,31 @@
     <table class="table table-striped table-hover">
         <thead class="thead">
             <tr>                            
-                <th>Identificador</th>
-                <th>Descriptción</th>
+                <th>Nombre de la tarea</th>
                 <th>Estado</th>
+                <th>Contenido</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                ...
-            </tr>
+            <?php
+
+            include 'utils.php';
+
+            foreach ($tareas as $posicion){
+                echo "<tr>";
+                echo "<td>" . $posicion[nombre_tarea] . "</td>";
+                echo "<td>" . $posicion[estado] . "</td>";
+                echo "<td>" . $posicion[contenido] . "</td>";
+                echo "</tr>";
+            }
+             ?>
+
+        </tbody>
+        </table>
 
 
             </main>
-        </div>
+        
     </div>
     <?php include 'footer.php'; ?>
 </body>
