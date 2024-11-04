@@ -27,17 +27,32 @@ function validar_estado($dato){
 }
 
 function guardar_datos($nombre_tarea, $estado, $contenido){
-
+    global $tareas;
     $nombre_tarea = test_input($nombre_tarea);
     $contenido = test_input($contenido);
     //No valido los datos de estado con test_input porque validar_estado ya no acepta nada que no sean las tres opciones dadas
 
 
-    if (validar_dato($nombre_tarea) && validar_estado($estado) && validar_dato($contenido)){  
+    if (validar_dato($nombre_tarea) && validar_estado($estado) && validar_dato($contenido)){
 
+        $nuevaTarea = [
+            'nombre_tarea' => $nombre_tarea,
+            'estado' => $estado,
+            'contenido' => $contenido
+        ];
+
+        $tareas[] = $nuevaTarea;
+        return true;
+
+    } else {
+        return false;
     }
 
 }
 
+function recuperar_tareas(){
+global $tareas;
+return $tareas;
+}
 
 ?>
