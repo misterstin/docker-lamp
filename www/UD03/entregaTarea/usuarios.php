@@ -29,12 +29,12 @@ $servername = "db";
 $username = "root";
 $password = "test";
 $dbName = "tareas";
-
+$usuarios = []; //importante inicializar el array antes del try
 
 try {
 
-    $conn = newPDO("mysql:host = $servername;dbname = $dbName", $username, $password);
-    $conPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = new PDO("mysql:host = $servername;dbname = $dbName", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $sql = "SELECT * FROM usuarios";
     $stmt = $conn->prepare($sql); //Se prepara la consulta para ser lanzada, paso obligatorio
@@ -45,7 +45,7 @@ try {
     //FETCH_ASSOC indica que se guardaran los resultados en un array bidimensional
     //fetchAll hace que se cojan todos los resultados que da la consulta
 
-}catch(PDOExecption $e){
+}catch(PDOException $e){
 
     echo "Fallo en conexión: ". $e->getMessage();
 }finally {
@@ -54,16 +54,7 @@ try {
 
 ?>
 
-<!DOCTYPE html>
-<html lang = 'es'>
-    <head>
-        <meta charset = "UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <title>Tabla de Usuarios</title>
-</head>
 
-<body>
 <div class="container mt-4">
     <h2>Lista de Usuarios</h2>
     <table class="table table-striped table-hover">
@@ -78,7 +69,26 @@ try {
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($usuarios as $usuario): ?>
+        <?php 
+        
+        foreach ($usuarios as $usuario){
+        
+        echo "<tr>";
+        echo "<td>" . $usuario["id"] . "</td>";
+        echo "<td>" . $usuario["username"] . "</td>";
+        echo "<td>" . $usuario["nombre"] . "</td>";
+        echo "<td>" . $usuario["apellidos"] . "</td>";
+        echo "<td>" . $usuario["contraseña"] . "</td>";
+        echo "<td>" ;
+            echo '<a href="editar.php?id=' . $usuario['id'] . '" class="btn btn-primary">Editar</a>';
+            echo '<a href="eliminar.php?id=' . $usuario['id'] . '" class="btn btn-danger">Eliminar</a>';
+        echo "</td>";
+        echo "</tr>";
+        
+
+        }
+        ?>
+
                 
 
 </tbody>
