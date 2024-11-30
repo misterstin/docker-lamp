@@ -39,7 +39,7 @@ try {
         throw new Exception("Fallo en conexión: " . $conMySQLi->connect_error);
     }
 
-    echo "Conexión correcta";
+    echo "Conexión correcta ";
 
     // Comprobamos si la base de datos existe buscándola mediante una consulta SQL
     $dbName = "tareas";

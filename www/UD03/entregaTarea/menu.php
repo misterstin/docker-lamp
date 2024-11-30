@@ -21,6 +21,11 @@
                     Inicializar aplicación
                 </a>
             </li>
+            <li class = "nav-item">
+                <a class = "nav-link" href="usuarios.php">
+                    Mostrar usuarios
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
