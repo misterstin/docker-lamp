@@ -9,7 +9,7 @@
 <body>
 
     <?php include_once('header.php'); ?>
-
+    
     <div class="container-fluid">
         <div class="row">
             
@@ -31,3 +31,4 @@
     
 </body>
 </html>
+<?php //ruta para navegador: http://localhost/UD03/entregaTarea/index.php ?>
