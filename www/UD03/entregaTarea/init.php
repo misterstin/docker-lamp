@@ -1,50 +1,47 @@
 <?php
-//declarar las variables con los datos de la db
+// Declarar las variables con los datos de la DB
 $servername = "db";
 $username = "root";
 $password = "test";
 
+// Hacer un try-catch para conectarse a la base de datos
+try {
+    // Crear conexión inicial
+    $conMySQLi = new mysqli($servername, $username, $password);
 
-//Hacer un trycatch para conectarse la bd
+    // Verificar si hay errores en la conexión
+    if ($conMySQLi->connect_error) {
+        throw new Exception("Fallo en conexión: " . $conMySQLi->connect_error);
+    }
 
-try{
+    echo "Conexión correcta";
 
-$conPDO = new PDO("mysql:host=$servername", $username, $password);
+    // Comprobamos si la base de datos existe buscándola mediante una consulta SQL
+    $dbName = "tareas";
+    $result = $conMySQLi->query("SHOW DATABASES LIKE '$dbName'");
 
-//forzar excepciones
-$conPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Esto siempre hay que ponerlo igual
-echo "Conexión correcta";
-/*Comprobamos si la base de datos existe buscandola mediante sentencia sql si devuelve algún
-resultado, nos conectamos a ella sobreescribiendo conPDO, sino la creamos*/
-$dbName = "tareas";
-$stmt = $conPDO->query("SHOW DATABASES LIKE '$dbName'");
+    if ($result->num_rows > 0) {
+        // Nos conectamos a la base de datos existente
+        $conMySQLi->select_db($dbName);
+    } else {
+        // Crear la base de datos si no existe
+        $sql = "CREATE DATABASE $dbName";
+        if (!$conMySQLi->query($sql)) {
+            throw new Exception("Error al crear la base de datos: " . $conMySQLi->error);
+        }
+        echo "Base de datos creada correctamente";
 
-if($stmt->rowCount() > 0){
-    $conPDO = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
-    $conPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}else{
+        // Nos conectamos a la base de datos recién creada
+        $conMySQLi->select_db($dbName);
+        echo "Conexión correcta a la base de datos recién creada.";
+    }
 
-    $sql = "CREATE DATABASE tareas";
-    $conPDO->exec($sql);
-    echo "Base de datos creada correctamente";
-
-    //Nos conectamos a la base de datos recien creada
-
-    $conPDO = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
-    $conPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Conexión correcta a la base de datos recién creada.";
-
+} catch (Exception $e) {
+    echo $e->getMessage(); // Mostrar mensaje de error
+} finally {
+    // Cerrar la conexión siempre al terminar
+    if (isset($conMySQLi) && $conMySQLi instanceof mysqli) {
+        $conMySQLi->close();
+    }
 }
-
-
-
-}catch(PDOExecption $e){
-
-    echo "Fallo en conexión: ". $e->getMessage();//lo último es para que recoja el mensaje del error
-
-}
-
-
-$conPDO = null //Cerrar base de datos siempre al terminar
-
 ?>
