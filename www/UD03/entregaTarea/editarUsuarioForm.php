@@ -60,6 +60,13 @@
                 <div class="container justify-content-between">
                     <form action="editarUsuario.php" method="POST" class="mb-5 w-50">
                         
+
+                        <div class="mb-3">
+                            
+                            <input type="hidden" class="form-control" id="descripcion" name="userName" value="<?php echo $idComprobar; ?>" required>
+                
+                        </div>
+
                         <div class="mb-3">
                             <label for="userName" class="form-label">Nombre de Usuario</label>
                             <input type="text" class="form-control" id="descripcion" name="userName" value=<?php echo $usuarios[0]["username"]?> required> <!-- Importante especificar en el array la posición en este caso siempre 0 -->
