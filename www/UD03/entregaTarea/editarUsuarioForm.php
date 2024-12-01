@@ -57,6 +57,31 @@
                 ?>
 
 
+                <div class="container justify-content-between">
+                    <form action="editarUsuario.php" method="POST" class="mb-5 w-50">
+                        
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Nombre de Usuario</label>
+                            <input type="text" class="form-control" id="descripcion" name="userName" value="$usuarios['username']" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="$usuarios['nombre']" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" value="$usuarios['apellidos']" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="text" class="form-control" id="password" name="password" value="$usuarios['contraseña']" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+
+
+
 
 
 
