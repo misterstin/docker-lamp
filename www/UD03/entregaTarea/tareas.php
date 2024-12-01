@@ -38,7 +38,8 @@
                 }
 
                 $sql = "SELECT * FROM tareas";
-                $tarea = $conMySQLi->query($sql);
+                $resultado = $conMySQLi->query($sql);
+                $tareas = $resultado->fetch_all(MYSQLI_ASSOC);//importante estas 3 lineas para cargar el resultado en el array etch_all(MYSQLI_ASSOC) se usa para obtener todas las filas a la vez
                 
 
                 $conMySQLi->close();
@@ -58,7 +59,7 @@
                             <tbody>
                                 <?php
                                     $lista = tareas();
-                                    foreach ($lista as $tarea)
+                                    foreach ($tareas as $tarea)
                                     {
                                         echo '<tr>';
                                         echo '<td>' . $tarea['id'] . '</td>';

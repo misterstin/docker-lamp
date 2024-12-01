@@ -35,31 +35,62 @@ require_once('utils.php');
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $contraseña = $_POST['password'];
+    $valido = true;
+
+                       
+                        if (!esCampoValido($userName)){
+                            $valido = false;
+                        }
+                        if (!esCampoValido($nombre))
+                        {
+                            $valido = false;
+                        }
+                        if (!esCampoValido($apellidos))
+                        {
+                            $valido = false;
+                        }
+                        if (!esCampoValido($contraseña)){
+                            $valido = false;
+                        }
+                        
+                        
+                        if ($valido)
+                        {
+                            
+                            
+
+                            try {
+
+                                $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
+                                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            
+                            
+                                
+                                $sql = "INSERT INTO usuarios (username, nombre, apellidos, contraseña) 
+                                        VALUES ('$userName', '$nombre', '$apellidos', '$contraseña')";
+                            
+                                $stmt = $conn->prepare($sql);
+                                $stmt->execute();   
+                                
+                                echo "<p>El usuario $userName se almacenó correctamente:</p>";
+                            
+                            }catch(PDOException $e){
+                            
+                                echo "Fallo en conexión: ". $e->getMessage();
+                            }finally {
+                                $conn = null;
+                            }
+                        }
+                        else
+                        {
+                            echo '<p class="error">Alguno de los campos no es válido.</p>';
+                        }
     
 
 
 
 
-try {
 
-    $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $sql = "INSERT INTO usuarios (username, nombre, apellidos, contraseña) 
-            VALUES ('$userName', '$nombre', '$apellidos', '$contraseña')";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();   
-    echo "Usuario registrado correctamente";
-    
-    
-
-}catch(PDOException $e){
-
-    echo "Fallo en conexión: ". $e->getMessage();
-}finally {
-    $conn = null;
-}
 
 
 ?>
