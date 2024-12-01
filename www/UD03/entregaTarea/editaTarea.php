@@ -25,6 +25,7 @@
 
                 <?php
 
+                    $id = $_POST['id'];
                     $titulo = $_POST['titulo'];
                     $desc = $_POST['descripcion'];
                     $estado = $_POST['estado'];
@@ -64,11 +65,17 @@
                             throw new Exception("Fallo en conexión: " . $conMySQLi->connect_error);
                         }
 
-                        $sql = "INSERT INTO tareas (titulo, descripcion, estado, id_usuario) 
-                        VALUES ('$titulo', '$desc', '$estado', '$id_usuario')";
+                        $sql = "UPDATE tareas 
+                                SET titulo = '$titulo', 
+                                descripcion = '$desc', 
+                                estado = '$estado', 
+                                id_usuario = $id_usuario 
+                                WHERE id = $id"; //ojo con las comillas hay q ponerlas aunque se usen variables
+                
+                                
                         $conMySQLi->query($sql);
 
-                        echo "<p>La tarea $titulo se almacenó correctamente:</p>";
+                        echo "<p>La tarea $titulo se modificó correctamente:</p>";
                         $conMySQLi->close();
                     } else {
                         echo '<p class="error">Alguno de los campos no es válido.</p>';
