@@ -24,6 +24,8 @@
 
 
 
+
+
                 <?php
 
 
@@ -31,7 +33,7 @@
                 $username = "root";
                 $password = "test";
                 $dbName = "tareas";
-                
+
 
 
                 try {
@@ -39,21 +41,14 @@
                     $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    $sql = "UPDATE usuarios 
-                            SET username = '".$_POST['userName']."', 
-                                nombre = '".$_POST['nombre']."', 
-                                apellidos = '".$_POST['apellidos']."', 
-                                contraseña = '".$_POST['password']."' 
-                            WHERE id = ".$_POST['id'];
+                    $sql = "DELETE FROM usuarios WHERE id = " . $_GET['id'];
                     $stmt = $conn->prepare($sql); 
                     $stmt->execute();
-                    echo "Datos actualizados correctamente"; //mucho ojo con las mayus minus en las referencias de los formularios
+                    echo "Datos borrados correctamente";
+   
 
-                //Recordar comillas simples y luego dobles para el $_POST y un punto antes para concatenar
-                   
-    
-    
-    
+
+
 
                 }catch(PDOException $e){
 
@@ -65,6 +60,9 @@
 
 
                 ?>
+
+
+
 
 
 
