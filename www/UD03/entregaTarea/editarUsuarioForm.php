@@ -40,7 +40,7 @@
                     $sql = "SELECT * FROM usuarios WHERE id=$idComprobar";
                     $stmt = $conn->prepare($sql); 
                     $stmt->execute();   
-                    $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC); /
+                    $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     
                     
                     
@@ -62,19 +62,19 @@
                         
                         <div class="mb-3">
                             <label for="userName" class="form-label">Nombre de Usuario</label>
-                            <input type="text" class="form-control" id="descripcion" name="userName" value="$usuarios['username']" required>
+                            <input type="text" class="form-control" id="descripcion" name="userName" value=<?php echo $usuarios[0]["username"]?> required> <!-- Importante especificar en el array la posición en este caso siempre 0 -->
                         </div>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="$usuarios['nombre']" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value=<?php echo $usuarios[0]["nombre"]?> required>
                         </div>
                         <div class="mb-3">
                             <label for="apellidos" class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" value="$usuarios['apellidos']" required>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" value=<?php echo $usuarios[0]["apellidos"]?> required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
-                            <input type="text" class="form-control" id="password" name="password" value="$usuarios['contraseña']" required>
+                            <input type="text" class="form-control" id="password" name="password" value=<?php echo $usuarios[0]["contraseña"]?> required>
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
