@@ -33,7 +33,7 @@ $usuarios = []; //importante inicializar el array antes del try
 
 try {
 
-    $conn = new PDO("mysql:host = $servername;dbname = $dbName", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);//Importante no dejar esapacios entre host=$servername;dbname=$dbName
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $sql = "SELECT * FROM usuarios";
