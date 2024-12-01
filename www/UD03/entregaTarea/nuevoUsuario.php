@@ -8,15 +8,29 @@ $password = "test";
 $dbName = "tareas";
 $usuarios = []; 
 
+
+require_once('utils.php');
+    $id = $_POST['id'];
+    $userName = $_POST['userName'];
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $contraseña = $_POST['password'];
+    
+
+
+
+
 try {
 
-    $conn = new PDO("mysql:host = $servername;dbname = $dbName", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT * FROM usuarios";
-    $stmt = $conn->prepare($sql); //Se prepara la consulta para ser lanzada, paso obligatorio
-    $stmt->execute();   //Se lanza la consulta
-    $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC); //se almacena el resultado en un array
+    $sql = "INSERT INTO usuarios (id, userName, nombre, apellidos, contraseña) 
+            VALUES ('$id', '$userName', '$nombre', '$apellidos', '$contraseña')";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();   
+    echo "Usuario registrado correctamente";
     
     
 
