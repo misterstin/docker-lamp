@@ -80,7 +80,7 @@ try {
         echo "<td>" . $usuario["apellidos"] . "</td>";
         echo "<td>" . $usuario["contraseña"] . "</td>";
         echo "<td>" ;
-            echo '<a href="editar.php?id=' . $usuario['id'] . '" class="btn btn-primary">Editar</a>';
+            echo '<a href="editarUsuarioForm.php?id=' . $usuario['id'] . '" class="btn btn-primary">Editar</a>';
             echo '<a href="eliminar.php?id=' . $usuario['id'] . '" class="btn btn-danger">Eliminar</a>';
         echo "</td>";
         echo "</tr>";
