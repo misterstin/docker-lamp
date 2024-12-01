@@ -26,6 +26,11 @@
                     Mostrar usuarios
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="nuevoUsuarioForm.php">
+                    Nuevo usuario
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
