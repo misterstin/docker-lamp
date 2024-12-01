@@ -31,6 +31,11 @@
                     Nuevo usuario
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="buscarTareas.php">
+                    Buscar Tareas
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
