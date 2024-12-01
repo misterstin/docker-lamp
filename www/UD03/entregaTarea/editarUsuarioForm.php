@@ -63,13 +63,13 @@
 
                         <div class="mb-3">
                             
-                            <input type="hidden" class="form-control" id="descripcion" name="userName" value="<?php echo $idComprobar; ?>" required>
+                            <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $idComprobar; ?>" required>
                 
                         </div>
 
                         <div class="mb-3">
                             <label for="userName" class="form-label">Nombre de Usuario</label>
-                            <input type="text" class="form-control" id="descripcion" name="userName" value=<?php echo $usuarios[0]["username"]?> required> <!-- Importante especificar en el array la posición en este caso siempre 0 -->
+                            <input type="text" class="form-control" id="userName" name="userName" value=<?php echo $usuarios[0]["username"]?> required> <!-- Importante especificar en el array la posición en este caso siempre 0 -->
                         </div>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
