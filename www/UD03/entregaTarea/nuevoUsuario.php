@@ -10,7 +10,7 @@ $usuarios = [];
 
 
 require_once('utils.php');
-    $id = $_POST['id'];
+    
     $userName = $_POST['userName'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
@@ -25,8 +25,8 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "INSERT INTO usuarios (id, userName, nombre, apellidos, contraseña) 
-            VALUES ('$id', '$userName', '$nombre', '$apellidos', '$contraseña')";
+    $sql = "INSERT INTO usuarios (username, nombre, apellidos, contraseña) 
+            VALUES ('$userName', '$nombre', '$apellidos', '$contraseña')";
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();   

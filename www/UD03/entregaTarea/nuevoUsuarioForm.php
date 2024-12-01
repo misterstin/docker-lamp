@@ -25,25 +25,22 @@
 
                 <div class="container justify-content-between">
                     <form action="nuevoUsuario.php" method="POST" class="mb-5 w-50">
-                        <div class="mb-3">
-                            <label for="id" class="form-label">Identificador</label>
-                            <input type="text" class="form-control" id="id" name="id" required>
-                        </div>
+                        
                         <div class="mb-3">
                             <label for="userName" class="form-label">Nombre de Usuario</label>
-                            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                            <input type="text" class="form-control" id="descripcion" name="userName" required>
                         </div>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="descripcion" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
                         </div>
                         <div class="mb-3">
                             <label for="apellidos" class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" id="apellidos" name="descripcion" required>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
-                            <input type="text" class="form-control" id="password" name="descripcion" required>
+                            <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
