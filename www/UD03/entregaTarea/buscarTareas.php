@@ -17,18 +17,18 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h2>Borrar usuario</h2>
+                    <h2>Buscar tareas</h2>
                 </div>
 
                 <div class="container justify-content-between">
 
 
                 <div class="container justify-content-between">
-                    <form action="nueva.php" method="POST" class="mb-5 w-50">
+                    <form action="tareas.php" method="POST" class="mb-5 w-50">
                         <div class="mb-3">
                         <label for="id_usuario" class="form-label">Usuario que realizó la tarea</label>
                         <select class="form-select" id="id_usuario" name="id_usuario" required>
-                            <option value="" selected disabled>Seleccione un usuario</option>
+                            <option value="" selected>Seleccione un usuario</option>
                                 <?php
                                 
                                 $servername = "db";
@@ -59,11 +59,13 @@
                         <div class="mb-3">
                             <label for="estado" class="form-label">Estado</label>
                             <select class="form-select" id="estado" name="estado">
-                                <option value="" selected disabled>Seleccione el estado</option>
+                                <option value="false" selected>Seleccione el estado</option>
                                 <option value="en_proceso">En Proceso</option>
                                 <option value="pendiente">Pendiente</option>
                                 <option value="completada">Completada</option>
                             </select>
+                            <input type="hidden" id="buscaTareas" name="buscaTareas" value="1">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
                     </form>
                 </div>
 
