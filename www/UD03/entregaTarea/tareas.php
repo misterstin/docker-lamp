@@ -6,7 +6,6 @@
     <title>UD2. Tarea</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
 
     <?php include_once('header.php'); ?>
 
@@ -22,7 +21,32 @@
 
                 <div class="container justify-content-between">
                 <?php require_once('utils.php'); ?>
-                    <div class="table">
+                    
+                
+                <?php
+
+                $servername = "db";
+                $username = "root";
+                $password = "test";
+                $dbName = "tareas";
+                $tareas = []; // importante inicializar el array al principio o no funcionara
+
+                $conMySQLi = new mysqli($servername, $username, $password);
+                $conMySQLi->select_db($dbName);
+                if ($conMySQLi->connect_error) {
+                throw new Exception("Fallo en conexión: " . $conMySQLi->connect_error);
+                }
+
+                $sql = "SELECT * FROM tareas";
+                $tarea = $conMySQLi->query($sql);
+                
+
+                $conMySQLi->close();
+
+                ?>
+                
+                
+                <div class="table">
                         <table class="table table-striped table-hover">
                             <thead class="thead">
                                 <tr>                            
@@ -38,8 +62,14 @@
                                     {
                                         echo '<tr>';
                                         echo '<td>' . $tarea['id'] . '</td>';
+                                        echo '<td>' . $tarea['titulo'] . '</td>';
                                         echo '<td>' . $tarea['descripcion'] . '</td>';
                                         echo '<td>' . $tarea['estado'] . '</td>';
+                                        echo '<td>' . $tarea ['id_usuario'] . '</td>';
+                                        echo "<td>" ;
+                                            echo '<a href="editarTareaForm.php?id=' . $tarea['id'] . '" class="btn btn-primary">Editar</a>';
+                                            echo '<a href="borrarTarea.php?id=' . $tarea['id'] . '" class="btn btn-danger">Eliminar</a>';
+                                        echo "</td>";
                                         echo '</tr>';
                                     }
                                 ?>
