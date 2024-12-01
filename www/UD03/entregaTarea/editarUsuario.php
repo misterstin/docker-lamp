@@ -31,7 +31,7 @@
                 $username = "root";
                 $password = "test";
                 $dbName = "tareas";
-                $usuarios = [];
+                
 
 
                 try {
@@ -39,10 +39,16 @@
                     $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    $sql = "SELECT * FROM usuarios WHERE id=$idComprobar";
+                    $sql = "UPDATE usuarios 
+                            SET username = '".$_POST['userName']."', 
+                                nombre = '".$_POST['nombre']."', 
+                                apellidos = '".$_POST['apellidos']."', 
+                                contraseña = '".$_POST['password']."' 
+                            WHERE id = ".$_POST['id'];
                     $stmt = $conn->prepare($sql); 
-                    $stmt->execute();   
-                    $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $stmt->execute();
+                    echo "Datos actualizados correctamente"; //mucho ojo con las mayus minus en las referencias de los formularios
+                   
     
     
     
