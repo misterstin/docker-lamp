@@ -59,12 +59,12 @@
                         <div class="mb-3">
                             <label for="estado" class="form-label">Estado</label>
                             <select class="form-select" id="estado" name="estado">
-                                <option value="false" selected>Seleccione el estado</option>
+                                <option value="" selected>Seleccione el estado</option>
                                 <option value="en_proceso">En Proceso</option>
                                 <option value="pendiente">Pendiente</option>
                                 <option value="completada">Completada</option>
                             </select>
-                            <input type="hidden" id="buscaTareas" name="buscaTareas" value="1">
+                            
                             <button type="submit" class="btn btn-primary">Buscar</button>
                     </form>
                 </div>

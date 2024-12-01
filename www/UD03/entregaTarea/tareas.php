@@ -30,23 +30,23 @@
                 $password = "test";
                 $dbName = "tareas";
                 $tareas = []; // importante inicializar el array al principio o no funcionara
+                
 
                 $conMySQLi = new mysqli($servername, $username, $password);
                 $conMySQLi->select_db($dbName);
                 if ($conMySQLi->connect_error) {
                 throw new Exception("Fallo en conexión: " . $conMySQLi->connect_error);
                 }
-                if ($_POST['buscaTareas']== "1"){
-                    if($_POST['estado'] == false){
+                if (empty($_POST['estado']) && empty($_POST['id_usuario'])){
+                    $sql = "SELECT * FROM tareas";
+                }else if(empty($_POST['estado'])){
                         $sql = "SELECT * FROM tareas WHERE id_usuario = '" . $_POST['id_usuario'] . "'";
 
                     }else{
                         $sql = "SELECT * FROM tareas WHERE id_usuario = '" . $_POST['id_usuario'] . "' AND estado = '" . $_POST['estado'] . "'";
 
                     }
-                }else {
-                    $sql = "SELECT * FROM tareas";
-                }
+                
                 
                 $resultado = $conMySQLi->query($sql);
                 $tareas = $resultado->fetch_all(MYSQLI_ASSOC);//importante estas 3 lineas para cargar el resultado en el array etch_all(MYSQLI_ASSOC) se usa para obtener todas las filas a la vez
@@ -62,8 +62,11 @@
                             <thead class="thead">
                                 <tr>                            
                                     <th>Identificador</th>
-                                    <th>Descriptción</th>
+                                    <th>Título</th>
+                                    <th>Descripción</th>
                                     <th>Estado</th>
+                                    <th>Número de usuario</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
