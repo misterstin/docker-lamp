@@ -17,7 +17,7 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h2>Borrar usuario</h2>
+                    <h2>Borrar tarea</h2>
                 </div>
 
                 <div class="container justify-content-between">
@@ -33,29 +33,23 @@
                 $username = "root";
                 $password = "test";
                 $dbName = "tareas";
+                
 
 
 
-                try {
-
-                    $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
-                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                    $sql = "DELETE FROM usuarios WHERE id = " . $_GET['id'];
-                    $stmt = $conn->prepare($sql); 
-                    $stmt->execute();
-                    echo "Datos borrados correctamente";
-   
-
-
-
-
-                }catch(PDOException $e){
-
-                    echo "Fallo en conexión: ". $e->getMessage();
-                }finally {
-                    $conn = null;
+                $conMySQLi = new mysqli($servername, $username, $password);
+                $conMySQLi->select_db($dbName);
+                if ($conMySQLi->connect_error) {
+                    throw new Exception("Fallo en conexión: " . $conMySQLi->connect_error);
                 }
+
+                $sql = "DELETE FROM tareas WHERE id = " . $_GET['id'];
+                $resultado = $conMySQLi->query($sql);
+
+                echo "Tarea eliminada correctamente";
+
+
+                $conMySQLi->close();
 
 
 
@@ -66,12 +60,12 @@
 
 
 
-                </div>
+            </div>
             </main>
         </div>
     </div>
 
-    <?php include_once('footer.php'); ?>
-    
+<?php include_once('footer.php'); ?>
+
 </body>
 </html>
