@@ -54,8 +54,51 @@ include ("validar.php");
 $titulo = $_POST["titulo"];
 $autor = $_POST["autor"];
 $isbn = $_POST["isbn"];
+$error = "";
 
-if 
+if (validarForm($titulo)!= false){
+    $titulo = validarForm($titulo);
+} else {
+    $error = "Título no valido";
+}
+
+if (validarForm($isbn) != false){
+    $isbn = validarForm($isbn);
+    
+}else{
+    $error = $error . ", Error el formato del ISBN no es valido";
+}
+
+if (empty($error)){
+
+
+    $servername = "db";
+    $username = "root";
+    $password = "test";
+    $dbname = "listaLibros";
+
+    try{
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO libros (titulo, autor, isbn)
+        VALUES ('$titulo', '$autor', '$isbn')";
+        $conn->exec($sql);
+    } catch(PDOException $e) {
+        echo 'Fallo en conexión: ' . $e->getMessage();
+    }finally{
+        $conn = null;
+    }
+    
+
+    echo "Datos guardados correctamente";
+    echo "<br>";
+    echo "<a href='index.php' class='boton'>volver</a>";
+} else {
+
+    echo $error;
+    echo "<br>";
+    echo "<a href='add_bookForm.php' class='boton'>Reintentar</a>";
+}
 
 
 

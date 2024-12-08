@@ -84,7 +84,9 @@
     ?>
 <br>
 <br>
-<a href="index.php" class="boton">volver</a>
+<input type = submit>
+</form>
+
 
 </body>
 </html>

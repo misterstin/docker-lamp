@@ -17,7 +17,7 @@ function validarForm ($info){
     
         return false;
     } else {
-        return true;
+        return $info;
     }
 
 
