@@ -105,7 +105,7 @@ foreach ($result as $row){
         echo "<td>" . $autRes["nombre"] . "</td>";
     }
     echo "<td>" . $row["isbn"] . "</td>";
-    echo "<td>" . "<a href=delete_book.php?$row[id]>eliminar</a>" . "</td>";
+    echo "<td>" . "<a class='btn btn-primary' href=delete_books.php?id=".$row['id'].">Eliminar</a>"  . "</td>";
     echo "</tr>";
 }
 echo "</tbody>";
