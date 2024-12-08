@@ -47,12 +47,41 @@
 <body>
 <h1>Añadir libro</h1>
 
-<?php
-
-
-
-
-?>
+<form action =add_book.php method = "post">
+    <label class=form-label name=titulo> Título </label>
+    <input type=text name=titulo id=titulo>
+    <br>
+    <br>
+    <br>
+    <label class=form-label name=isbn> ISBN </label>
+    <input type=text name=isbn id=isbn>
+    <br>
+    <br>
+    <br>
+    <label class=form-label name=autor> Autor </label>
+    <select name=autor id=autor>
+        <?php
+    $servername = "db";
+    $username = "root";
+    $password = "test";
+    $dbname = "listaLibros";
+    $result = [];
+    try{
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare("SELECT * FROM autores");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+    } catch(PDOException $e) {
+        echo 'Fallo en conexión: ' . $e->getMessage();
+    }finally{
+        $conn = null;
+    }
+    foreach($result as $row){
+        $identificador = $row["id"];
+        echo "<option value=$identificador>" . $row["nombre"] . "</option>"; 
+    }
+    ?>
 <br>
 <br>
 <a href="index.php" class="boton">volver</a>
