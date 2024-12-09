@@ -42,15 +42,11 @@
             text-decoration: none;
             }
     </style>
-<title>Autores</title>
+<title>Añadir Autor</title>
 </head>
 <body>
-<h1>Gestión de Autores</h1>
+<h1>Añadir Autor</h1>
 <br>
-<br>
-<a href="add_autorForm.php" class="boton">Añadir autor</a>
-<br>
-<a href='index.php' class='boton'>volver</a>
 <br>
 
 <?php
@@ -59,16 +55,18 @@ $servername = "db";
 $username = "root";
 $password = "test";
 $dbname = "listaLibros";
-$result = [];
-
-
+$autor = $_POST["nombre"];
 
 try{
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT * from autores");
-    $stmt->execute();
-    $result = $stmt->fetchAll();
+    $sql = "INSERT INTO autores (nombre)
+    VALUES ('$autor')";
+    $conn->exec($sql);
+    echo "Autor añadido correctamente";
+    echo "<br>";
+    echo "<br>";
+    echo "<a href='autores.php' class='boton'>volver</a>";
 } catch(PDOException $e) {
     echo 'Fallo en conexión: ' . $e->getMessage();
 }finally{
@@ -76,27 +74,7 @@ try{
 }
 
 
-echo "<table>";
-echo "<thead>";
-echo "<tr>";
-echo "<td>id</td>";
-echo "<td>Nombre</td>";
-echo "<td>Opciones</td>";
-echo "</tr>";
-echo "</thead>";
-echo "<tbody>";
-foreach ($result as $row){
-    echo "<tr>";
-    echo "<td>" . $row["id"] . "</td>";
-    echo "<td>" . $row["nombre"] . "</td>";
-    echo "<td>" . "<a class='btn btn-primary' href=delete_autor.php?id=".$row['id'].">Eliminar</a>"  . "</td>";
-    echo "</tr>";
-}
-echo "</tbody>";
-echo "</table>";
-
 ?>
-
 
 </body>
 </html>
