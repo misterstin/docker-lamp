@@ -46,11 +46,6 @@
 </head>
 <body>
 <h1>Mi Biblioteca</h1>
-<a href="config.php" class="boton">Iniciar BD</a>
-<br>
-<a href="add_bookForm.php" class="boton">Añadir Libro</a>
-<br>
-<a href="autores.php" class="boton">Gestión de Autores</a>
 
 <?php
 
@@ -58,71 +53,67 @@ $servername = "db";
 $username = "root";
 $password = "test";
 $dbname = "listaLibros";
-$result = [];
-$autor_resultado = [];
-
-
+$idCons = $_GET["id"];
+$infoEdit = [];
+$tituloEdit = "";
+$isbnEdit = "";
+$autorEdit= "";
 
 try{
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT * from libros");
+    $stmt = $conn->prepare("SELECT * FROM libros WHERE id = '$idCons'");
     $stmt->execute();
-    $result = $stmt->fetchAll();
+    $infoEdit = $stmt->fetchAll();
 } catch(PDOException $e) {
     echo 'Fallo en conexión: ' . $e->getMessage();
 }finally{
     $conn = null;
 }
+foreach($result as $row){
+    $tituloEdit = $row["titulo"];
+    $isbnEdit = $row["isbn"];
+    $autorEdit = $row["autor"];
+    
+}
 
 
-echo "<table>";
-echo "<thead>";
-echo "<tr>";
-echo "<td>id</td>";
-echo "<td>Título</td>";
-echo "<td>Autor</td>";
-echo "<td>ISBN</td>";
-echo "<td>Opciones</td>";
-echo "</tr>";
-echo "</thead>";
-echo "<tbody>";
-foreach ($result as $row){
-    echo "<tr>";
-    echo "<td>" . $row["id"] . "</td>";
-    echo "<td>" . $row["titulo"] . "</td>";
+echo "<form action =add_book.php method = "post">";
+    echo "<label class=form-label name=titulo> Título </label>";
+    echo "<input type=text name=titulo id=titulo placeholder='$tituloEdit'>";
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<label class=form-label name=isbn> ISBN </label>";
+    echo "<input type=text name=isbn id=isbn placeholder='$isbnEdit'>";
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<label class=form-label name=autor> Autor </label>";
+    echo "<select name=autor id=autor>";
+        
+    
+    $result = [];
     try{
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $autorBuscar = $row["autor"];
-        $stmt = $conn->prepare("SELECT nombre FROM autores WHERE $autorBuscar = id");
+        $stmt = $conn->prepare("SELECT * FROM autores");
         $stmt->execute();
-        $autor_resultado = $stmt->fetchAll();
+        $result = $stmt->fetchAll();
     } catch(PDOException $e) {
         echo 'Fallo en conexión: ' . $e->getMessage();
     }finally{
         $conn = null;
     }
-    foreach($autor_resultado as $autRes){
-        echo "<td>" . $autRes["nombre"] . "</td>";
+    foreach($result as $row){
+        $identificador = $row["id"];
+        echo "<option value=$identificador>" . $row["nombre"] . "</option>"; 
     }
-    echo "<td>" . $row["isbn"] . "</td>";
-    echo "<td>" . "<a class='btn btn-primary' href=delete_books.php?id=".$row['id'].">Eliminar</a>"  . "</td>";
-    echo "<td>" . "<a class='btn btn-primary' href=edit_booksForm.php?id=".$row['id'].">Editar</a>"  . "</td>";
-    echo "</tr>";
-}
-echo "</tbody>";
-echo "</table>";
-  
+    ?>
 
 
-?>
+
 
 
 </body>
 </html>
-
-
-
-
-
