@@ -10,3 +10,10 @@
     <label for="username" class="form-label">Username</label>
     <input type="text" class="form-control" id="username" name="username" value="<?php echo isset($username) ? ($username) : '' ?>" required>
 </div>
+<div class="mb-3">
+    <label for="admin" class="form-label">Administrador</label>
+    <select id="admin" name="admin">
+        <option value=1>Sí</option>
+        <option value=0>No</option>
+    </select>
+</div>
