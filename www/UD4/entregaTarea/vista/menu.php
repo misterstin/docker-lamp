@@ -6,6 +6,7 @@
                     Home
                 </a>
             </li>
+            </li>    
             <li class="nav-item">
                 <a class="nav-link" href="/UD4/entregaTarea/init.php">
                     Inicializar (mysqli)
@@ -34,6 +35,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="/UD4/entregaTarea/tareas/buscaTareas.php">
                    Buscador de tareas (PDO)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/UD4/entregaTarea/usuarios/logOut.php">
+                    Cerrar sesión
                 </a>
             </li>
             

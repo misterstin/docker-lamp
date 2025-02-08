@@ -1,3 +1,17 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para continuar.";
+    header("Location: /UD4/entregaTarea/usuarios/login.php");
+    exit();
+}
+if ($_SESSION['admin'] != 1) {
+    $_SESSION['error_message'] = "No tienes permisos para acceder a esta página.";
+    header("Location: /UD4/entregaTarea/index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

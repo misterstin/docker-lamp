@@ -180,3 +180,29 @@ function buscaUsuario($id)
     }
     
 }
+
+function buscaLogin($username, $password){
+
+    try{
+    $con = conectaPDO();
+    $stmt = $con->query("SELECT username, contrasena, admin FROM usuarios WHERE username = '$username' AND contrasena = '$password'");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    if ($stmt->rowCount() == 1)
+        {
+            return $stmt->fetch();
+        }
+        else
+        {
+            return null;
+        }
+    }
+    catch (PDOExcetion $e)
+    {
+        return null;
+    }
+    finally
+    {
+        $con = null;
+    }
+}

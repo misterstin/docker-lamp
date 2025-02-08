@@ -1,4 +1,19 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    $_SESSION['error_message'] = "Debes iniciar sesión para continuar.";
+    header("Location: /UD4/entregaTarea/usuarios/login.php");
+    exit();
+}
+if ($_SESSION['admin'] != 1) {
+    $_SESSION['error_message'] = "No tienes permisos para acceder a esta página.";
+    header("Location: /UD4/entregaTarea/index.php");
+    exit();
+}
+?>
+    
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -50,7 +65,12 @@
                                             echo '<td>' . $usuario['nombre'] . '</td>';
                                             echo '<td>' . $usuario['apellidos'] . '</td>';
                                             echo '<td>' . $usuario['username'] . '</td>';
-                                            echo '<td>' . $usuario['admin'] . '</td>';
+                                            if ($usuario['admin']===1){
+                                                echo '<td>' . 'Si' . '</td>';
+                                            } else {
+                                                echo '<td>' . 'No' . '</td>';
+                                            }
+                                            echo '<td>';
                                             echo '<a class="btn btn-sm btn-outline-success" href="editaUsuarioForm.php?id=' . $usuario['id'] . '" role="button">Editar</a>';
                                             echo '<a class="btn btn-sm btn-outline-danger ms-2" href="borraUsuario.php?id=' . $usuario['id'] . '" role="button">Borrar</a>';
                                             echo '</td>';
