@@ -67,12 +67,15 @@ function listaTareasPDO($id_usuario, $estado)
 function nuevoUsuario($nombre, $apellidos, $username, $contrasena, $admin)
 {
     try{
+
+        $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
+
         $con = conectaPDO();
         $stmt = $con->prepare("INSERT INTO usuarios (nombre, apellidos, username, contrasena, admin) VALUES (:nombre, :apellidos, :username, :contrasena, :admin)");
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':apellidos', $apellidos);
         $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':contrasena', $contrasena);
+        $stmt->bindParam(':contrasena', $contrasenaHash);
         $stmt->bindParam(':admin', $admin);
         $stmt->execute();
         
@@ -181,28 +184,31 @@ function buscaUsuario($id)
     
 }
 
-function buscaLogin($username, $password){
-
-    try{
-    $con = conectaPDO();
-    $stmt = $con->query("SELECT username, contrasena, admin FROM usuarios WHERE username = '$username' AND contrasena = '$password'");
-    $stmt->execute();
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    if ($stmt->rowCount() == 1)
-        {
-            return $stmt->fetch();
+function buscaLogin($username, $password)
+{
+    try {
+        $con = conectaPDO();
+        
+        
+        $sql = "SELECT username, contrasena, admin FROM usuarios WHERE username = '$username'";
+        $stmt = $con->query($sql); 
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        
+        if ($stmt->rowCount() == 1) {
+            $user = $stmt->fetch();
+            
+            
+            if (password_verify($password, $user['contrasena'])) {
+                return $user; 
+            } else {
+                return null; 
+            }
+        } else {
+            return null; 
         }
-        else
-        {
-            return null;
-        }
-    }
-    catch (PDOExcetion $e)
-    {
+    } catch (PDOException $e) {
         return null;
-    }
-    finally
-    {
+    } finally {
         $con = null;
     }
 }
