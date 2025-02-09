@@ -83,7 +83,7 @@ function nuevoUsuario($nombre, $apellidos, $username, $contrasena, $admin)
 
         return [true, null];
     }
-    catch (PDOExcetion $e)
+    catch (PDOException $e)
     {
         return [false, $e->getMessage()];
     }
@@ -120,7 +120,7 @@ function actualizaUsuario($id, $nombre, $apellidos, $username, $contrasena, $adm
 
         return [true, null];
     }
-    catch (PDOExcetion $e)
+    catch (PDOException $e)
     {
         return [false, $e->getMessage()];
     }
@@ -144,7 +144,7 @@ function borraUsuario($id)
         
         return [$con->commit(), ''];
     }
-    catch (PDOExcetion $e)
+    catch (PDOException $e)
     {
         return [false, $e->getMessage()];
     }
@@ -173,7 +173,7 @@ function buscaUsuario($id)
             return null;
         }
     }
-    catch (PDOExcetion $e)
+    catch (PDOException $e)
     {
         return null;
     }
@@ -261,4 +261,21 @@ function nombreUsuario($id_usuario) {
         $con = null;
     }
 }
+
+function subirArchivo($nombre, $file, $descripcion, $id_tarea){
+    try{
+        $con = conectaPDO();
+        $stmt = $con->prepare("INSERT INTO ficheros (nombre, file, descripcion, id_tarea) VALUES ('$nombre', '$file', '$descripcion', '$id_tarea')");
+
+        }
+    catch (PDOException $e)
+    {
+        return [false, $e->getMessage()];
+    }
+    finally
+    {
+        $con = null;
+    }
+}
+
 

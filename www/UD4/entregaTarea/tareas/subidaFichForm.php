@@ -39,7 +39,7 @@ $es_admin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
                     </div>
                     <div class="mb-3">
                         <label for="archivo" class="form-label">Seleccionar archivo</label>
-                        <input type="file" class="form-control" id="archivo" name="archivo" required>
+                        <input type="file" class="form-control" id="fileToUpload" name="fileToUpload" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Subir archivo</button>
                 </form>
@@ -49,41 +49,54 @@ $es_admin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
     <?php
   $target_dir = "files/";
 
-  $random_name = bin2hex(random_bytes(8));  
+  $nombreAleatorio= bin2hex(random_bytes(8));  
 
-  $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
 
-  
-  $target_file = $target_dir . $random_name . '.' . $fileType;
-
+  $target_dir = "files/";
+  $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION)); 
+  $target_file = $target_dir . $nombreAleatorio . '.' . $fileType;
   $uploadOk = 1;
+  $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-  
-  if (!file_exists($target_file)) {
-      
-      if ($_FILES["fileToUpload"]["size"] > 20 * 1024 * 1024) {
-          echo "El archivo es demasiado grande.";
-          $uploadOk = 0;
-      }
-     
-      elseif ($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg" && $fileType != "pdf") {
-          echo "Solo los ficheros JPG, JPEG, PNG & PDF están permitidos.";
-          $uploadOk = 0;
-      }
-
-      
-      if ($uploadOk == 1) {
-          if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-              echo "El fichero " . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . " ha sido subido como " . $random_name . '.' . $fileType;
-          } else {
-              echo "Hubo un error subiendo el fichero.";
+  if (!file_exists($target_file))
+  {
+      if ($_FILES["fileToUpload"]["size"] > 20 * 1024 * 1024)
+      {
+          if (
+            $fileType != "jpg"
+            && $fileType != "png"
+            && $fileType != "jpeg"
+            && $fileType != "pdf" )
+          {
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file))
+            {
+                echo "El fichero ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). "ha sido subido.";
+            }
+            else
+            {
+                echo "Hubo un error subiendo el fichero";
+            }
+          }
+          else
+          {
+              echo "Solo los ficheros JPG, JPEG, PNG & GIF están permitidos.";
           }
       }
-  } else {
-      echo "El archivo ya existe.";
+      else
+      { 
+          echo "El archivo es demasiado grande.";
+      }
   }
+  else
+  { 
+      echo "El fichero ya existe";
+  }
+
+
+  include_once('../modelo/pdo.php');
+  subirArchivo($random_name, $target_file, $_POST['descripcion'], $_GET['id']);
 ?>
     <?php include_once('../vista/footer.php'); ?>
     
 </body>
-</html>
+</html> 
