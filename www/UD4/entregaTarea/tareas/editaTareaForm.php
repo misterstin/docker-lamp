@@ -1,9 +1,11 @@
 <?php
-session_start();
+    session_start();
 if (!isset($_SESSION['username'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para continuar.";
     header("Location: /UD4/entregaTarea/usuarios/login.php");
     exit();}
+
+
 ?>
 
 <!DOCTYPE html>

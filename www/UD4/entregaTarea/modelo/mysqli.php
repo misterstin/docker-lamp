@@ -309,3 +309,40 @@ function buscaUsuarioMysqli($id)
         }
     }
 }
+
+function listaTareasUser($user_username)
+{
+    try {
+        $conexion = conectaTareas();
+
+        if ($conexion->connect_error)
+        {
+            return [false, $conexion->error];
+        }
+        else
+        {
+            $sql = "SELECT *
+                    FROM tareas
+                    INNER JOIN usuarios ON tareas.id_usuario = usuarios.id
+                    WHERE usuarios.username = '$user_username';
+                    ";
+            $resultados = $conexion->query($sql);
+            $tareas = array();
+            while ($row = $resultados->fetch_assoc())
+            {
+                $usuario = buscaUsuarioMysqli($row['id_usuario']);
+                $row['id_usuario'] = $usuario['username'];
+                array_push($tareas, $row);
+            }
+            return [true, $tareas];
+        }
+        
+    }
+    catch (mysqli_sql_exception $e) {
+        return [false, $e->getMessage()];
+    }
+    finally
+    {
+        cerrarConexion($conexion);
+    }
+}

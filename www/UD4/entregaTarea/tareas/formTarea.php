@@ -1,3 +1,4 @@
+
 <div class="mb-3">
     <label for="titulo" class="form-label">Título</label>
     <input type="text" class="form-control" id="titulo" name="titulo" value="<?php echo isset($titulo) ? ($titulo) : '' ?>" required>
@@ -21,11 +22,14 @@
         <option value="" <?php echo isset($id_usuario) ? '' : 'selected' ?> disabled>Seleccione el usuario</option>
         <?php
             require_once('../modelo/pdo.php');
-            $usuarios = listaUsuarios()[1];
-            foreach ($usuarios as $usuario) { ?>
-                <option value="<?php echo ($usuario['id']); ?>" <?php echo isset($id_usuario) && $id_usuario == $usuario['id'] ? 'selected' : '' ?> >
-                    <?php echo $usuario['username']; ?>
-                </option>
-        <?php } ?>
+            if ($es_admin === true) {
+                $usuarios = listaUsuarios()[1];
+                    foreach ($usuarios as $usuario) {
+                        echo '<option value="' . $usuario['id'] . '">' . $usuario['username'] . '</option>';
+                         }
+                        } else {
+                         echo '<option value="' . $user_username . '">' . $user_username . '</opition>';
+                        }
+        ?>
     </select>
 </div>

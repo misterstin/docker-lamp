@@ -4,6 +4,13 @@ if (!isset($_SESSION['username'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para continuar.";
     header("Location: /UD4/entregaTarea/usuarios/login.php");
     exit();}
+
+    require_once('../modelo/pdo.php');
+
+$user_username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$es_admin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
+
+$resultado = null;
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +37,7 @@ if (!isset($_SESSION['username'])) {
 
                 <div class="container justify-content-between">
                 <?php
+                include_once('../modelo/mysqli.php');
 
                     $resultado = null;
                     if (!empty($_GET))
@@ -39,10 +47,12 @@ if (!isset($_SESSION['username'])) {
                         require_once('../modelo/pdo.php');
                         $resultado = listaTareasPDO($id_usuario, $estado);
                     }
-                    else
+                    else if ($es_admin === true)
                     {
                         require_once('../modelo/mysqli.php');
                         $resultado = listaTareas();
+                    } else if ($es_admin === false){
+                        $resultado = listaTareasUser($user_username);
                     }
                     
                     if ($resultado && $resultado[0])

@@ -4,6 +4,12 @@ if (!isset($_SESSION['username'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para continuar.";
     header("Location: /UD4/entregaTarea/usuarios/login.php");
     exit();}
+
+    require_once('../modelo/pdo.php');
+
+$user_username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$es_admin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
+
 ?>
 
 <!DOCTYPE html>

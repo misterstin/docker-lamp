@@ -4,6 +4,13 @@ if (!isset($_SESSION['username'])) {
     $_SESSION['error_message'] = "Debes iniciar sesión para continuar.";
     header("Location: /UD4/entregaTarea/usuarios/login.php");
     exit();}
+
+    require_once('../modelo/pdo.php');
+
+$user_username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$es_admin = isset($_SESSION['admin']) && $_SESSION['admin'] == 1;
+
+
 ?>
 
 <!DOCTYPE html>
@@ -30,18 +37,21 @@ if (!isset($_SESSION['username'])) {
 
                 <div class="container justify-content-between">
                     <form action="tareas.php" method="GET" class="mb-5 w-50">
-                        <div class="mb-3">
-                            <label for="id_usuario" class="form-label">Usuario</label>
-                            <select class="form-select" id="id_usuario" name="id_usuario" required>
-                                <option value="" selected disabled>Seleccione el usuario</option>
+                    <div class="mb-3">
+                         <label for="id_usuario" class="form-label">Usuario</label>
+                         <select class="form-select" id="id_usuario" name="id_usuario" required>
+                            <option value="" selected disabled>Seleccione el usuario</option>
                                 <?php
-                                    require_once('../modelo/pdo.php');
+                                require_once('../modelo/pdo.php');
+                                    if ($es_admin === true) {
                                     $usuarios = listaUsuarios()[1];
-                                    foreach ($usuarios as $usuario) { ?>
-                                        <option value="<?php echo ($usuario['id']); ?>">
-                                            <?php echo $usuario['username']; ?>
-                                        </option>
-                                <?php } ?>
+                                        foreach ($usuarios as $usuario) {
+                                        echo '<option value="' . $usuario['id'] . '">' . $usuario['username'] . '</option>';
+                                        }
+                                    } else {
+                                        echo '<option value="' . $user_username . '">' . $user_username . '</opition>';
+                                    }
+                                ?>
                             </select>
                         </div>
                         <div class="mb-3">
