@@ -6,8 +6,10 @@
                     Home
                 </a>
             </li>
-            </li>    
-            <li class="nav-item">
+            </li> 
+            <?php 
+                if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {    
+            echo '<li class="nav-item">
                 <a class="nav-link" href="/UD4/entregaTarea/init.php">
                     Inicializar (mysqli)
                 </a>
@@ -21,7 +23,9 @@
                 <a class="nav-link" href="/UD4/entregaTarea/usuarios/nuevoUsuarioForm.php">
                     Nuevo usuario (PDO)
                 </a>
-            </li>
+            </li>';
+                }
+            ?>
             <li class="nav-item">
                 <a class="nav-link" href="/UD4/entregaTarea/tareas/tareas.php">
                     Lista de tareas (mysqli)
