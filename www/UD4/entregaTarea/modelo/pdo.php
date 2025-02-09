@@ -213,4 +213,52 @@ function buscaLogin($username, $password)
     }
 }
 
+function infoTareas($id_tarea)
+{
+    try {
+        $con = conectaPDO();
+        $sql = 'SELECT * FROM tareas WHERE id = ' . $id_tarea;
+        
+       
+       
+
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+
+        
+        $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        
+            return [true, $tareas]; 
+        
+    } catch (PDOException $e) {
+        return [false, $e->getMessage()]; 
+    } finally {
+        $con = null;
+    }
+}
+
+function nombreUsuario($id_usuario) {
+    try {
+        $con = conectaPDO();
+        $sql = 'SELECT username FROM usuarios WHERE id = ' . $id_usuario;  
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+
+       
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        
+        if ($usuario) {
+            return $usuario['username'];  
+        } else {
+            return '';  
+        }
+        
+    } catch (PDOException $e) {
+        return [false, $e->getMessage()]; 
+    } finally {
+        $con = null;
+    }
+}
 
