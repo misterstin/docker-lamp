@@ -75,9 +75,9 @@ $resultado = null;
                     }
                     ?>
 
-                    <!-- Tarjeta para subir archivo -->
+                   
                     <div class="col-md-4 mb-4">
-                        <a href="subidaFichForm.php" class="card shadow-sm text-decoration-none">
+                        <a href="subidaFichForm.php?id=<?php echo $tarea['id']; ?>" class="card shadow-sm text-decoration-none">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Subir Archivo</h5>
                                 <p class="card-text">Haz clic para subir un archivo relacionado con la tarea.</p>
