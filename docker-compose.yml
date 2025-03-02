@@ -8,7 +8,7 @@ services:
             MYSQL_DATABASE: colegio
             MYSQL_USER: colegio
             MYSQL_PASSWORD: colegio
-            MYSQL_ROOT_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test 
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
             - ./conf:/etc/mysql/conf.d
@@ -18,7 +18,7 @@ services:
     www:
         build: .
         ports: 
-            - "8080:80"
+            - "80:80"
         volumes:
             - ./www:/var/www/html
         links:
@@ -38,6 +38,6 @@ services:
         environment:
             MYSQL_USER: root
             MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test 
 volumes:
     persistent:

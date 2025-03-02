@@ -1,1 +1,0 @@
-<footer class="bg-dark text-white text-center py-3">&#169; 2024 Mi Página Web - Todos los derechos reservados</footer>
